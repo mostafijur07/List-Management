@@ -8,38 +8,50 @@
 
 .fullscreen{
     position: absolute;
-    height: auto;
     width: 100%;
-    /* border: solid 2px red; */
     display: flex;
     flex-direction: column;
 }
 
 .header{
     position: relative;
-    height: 75px;
+    height: 100px;
     width: 100%;
-    background-color: #050B2B;
-    /* border: solid 2px red; */
+    background-image: url("header-back-img.png");
+    background-size: cover;
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 5px 0px rgb(116, 114, 114);
+}
+
+.heading{
+    position: relative;
+    padding-left: 40px;
+    font-size: 40px;
+    color: rgb(42, 118, 149);
 }
 
 #create-button{
     position: relative;
-    margin: 0px 20px 0px 0px;
-    height: 50%;
-    width: auto;
-    font-size: 20px;
-    background-color: yellow;
+    padding: 0px 20px 0px 0px;
+    right: 20px;
+    background: none;
+    border: none;
+}
+
+.fa-circle-plus{
+    font-size: 50px;
+    color: #237923;
+}
+
+.fa-circle-plus:hover{
+    box-shadow: 0px 0px 5px 0px rgb(116, 114, 114);
 }
 
 .list-container{
     position: relative;
-    height: auto;
     width: 100%;
-    /* border: solid 2px red; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,13 +59,13 @@
 
 .create-popup-card{
     position: fixed;
-    top: 50px;
+    top: 70px;
     left: 35%;
-    height: 200px;
-    width: auto;
-    /* border: solid 2px red; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    background-color: #fffcf7;
+    height: 180px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(49, 49, 49);
+    background-color: white;
     display: none;
     flex-direction: column;
     justify-content: flex-start;
@@ -63,23 +75,54 @@
     position: relative;
     height: 30px;
     width: 10%;
-    left: 90%;
+    left: 89%;
+    top: 5px;
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+#create-close-button:hover{
+    color: rgb(249, 8, 8);
+    box-shadow: 0px 0px 5px 0px rgb(85, 85, 85);
+}
+
+.create-popup-card h1{
     font-size: 20px;
+    font-family: sans-serif;
+    position: relative;
+    margin: 5px 20px 5px 20px;
 }
 
 #create-submit-button{
     position: relative;
-    height: 30px;
-    width: 35%;
-    left: 35%;
-    top: 10%;
-    font-size: 25px;
+    height: 25px;
+    width: 75px;
+    left: 20px;
+    top: 10px;
+    font-size: 16px;
+    font-family: auto;
+    background-color: rgb(227, 226, 226);
 }
 
-.create-popup-card select{
-    position: relative;
+#create-submit-button:hover{
+    box-shadow: 0px 0px 5px 0px rgb(96, 95, 95);
+}
+
+#listname_textarea{
     margin-left: 20px;
-    font-size: 20px;
+    height: 28px;
+    width: 300px;
+    font-size: 14px;
+    font-family: system-ui;
+    text-transform: uppercase;
+    border: solid 2px;
+    resize: none;
+}
+
+#listname_textarea:hover{
+    border: 2px solid rgb(43, 186, 243);
 }
 
 .list-card{
@@ -98,24 +141,21 @@
     position: relative;
     min-height: 35px;
     width: 100%;
-    /* border: solid 2px red; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-h1{
+.listname_header{
     font-size: 20px;
     position: relative;
     margin: 5px 20px 5px 20px;
+    color: rgb(42, 118, 149);
 }
 
 .button-container{
     position: relative;
-    height: 100%;
-    width: auto;
-    /* border: solid 2px red; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -123,14 +163,27 @@ h1{
 
 #add-button, #delete-button{
     position: relative;
-    height: 100%;
-    width: auto;
-    margin: 2px 2px 2px 20px;
-    font-size: 20px;
+    margin: 5px 5px 0px 0px;
+    font-size: 17px;
+    font-family: auto;
+    /* color: green; */
+    background: none;
+    border: none;
+    box-shadow: 0px 0px 2px 0px gray;
 }
 
-#delete-button{
-    margin: 2px;
+#add-button:hover, #delete-button:hover{
+    box-shadow: 0px 0px 5px 0px gray;
+}
+
+.fa-plus{
+    color: green;
+    padding-right: 5px;
+}
+
+.fa-trash{
+    color: red;
+    padding-right: 7px;
 }
 
 .complete-list, .incomplete-list{
@@ -147,26 +200,61 @@ h1{
 
 .list-popup-card{
     position: fixed;
-    top: 50px;
-    left: 40%;
-    height: 300px;
-    width: 25%;
-    /* border: solid 2px red; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    background-color: #fffcf7;
+    top: 70px;
+    left: 35%;
+    height: 250px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(49, 49, 49);
+    background-color: white;
     display: none;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-#list-form{
-    font-size: 30px;
+#list-close-button{
+    position: relative;
+    height: 30px;
+    width: 10%;
+    left: 89%;
+    top: 5px;
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+ }
+
+#list-close-button:hover{
+    color: rgb(249, 8, 8);
+    box-shadow: 0px 0px 5px 0px rgb(85, 85, 85);
 }
 
-#list-form textarea{
-    font-size: 25px;
-    width: 90%;
-    margin-left: 5%;
+.Additem-cardheader, .Additem-cardStatusHeader{
+    font-size: 15px;
+    font-family: sans-serif;
+    position: relative;
+    margin: 5px 0px 0px 20px;
+}
+
+#list-item-textarea{
+    margin-left: 20px;
+    height: 56px;
+    width: 300px;
+    font-size: 14px;
+    font-family: system-ui;
+    text-transform: uppercase;
+    border: solid 2px;
+    resize: none;
+}
+
+#list-item-textarea:hover{
+    border: 2px solid rgb(43, 186, 243);
+}
+
+.input-div{
+    top: 10px;
+    position: relative;
+    display: flex;
 }
 
 input[type="radio"] {
@@ -174,48 +262,59 @@ input[type="radio"] {
     margin-left: 5%; 
 }
 
-#list-close-button{
-   position: relative;
-    height: 30px;
-    width: 10%;
-    left: 90%;
-    font-size: 20px;
+.input-name{
+    font-size: 12px;
+    font-family: sans-serif;
+    position: relative;
+    margin: 5px 20px 5px 20px;
 }
 
 #list-submit-button{
     position: relative;
-    height: 30px;
-    width: 35%;
-    left: 35%;
-    top: 10%;
-    font-size: 25px;
+    height: 25px;
+    width: 75px;
+    left: 20px;
+    top: 10px;
+    font-size: 16px;
+    font-family: auto;
+    background-color: rgb(227, 226, 226);
+}
+
+#list-submit-button:hover{
+    box-shadow: 0px 0px 5px 0px rgb(96, 95, 95);
 }
 
 .c-list-item-card, .in-list-item-card{
     position: relative;
-    height: 30px;
-    width: auto;
-    margin: 5px;
-    border: solid 2px black;
-    background-color: #15ed15;
-    padding: 2px 2px 2px 2px;
-    font-size: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 7px;
+    padding: 4px;
+    border: solid 1px rgb(4, 252, 4);
+    box-shadow: 0px 0px 1px 0px rgb(3, 251, 3);
+    font-family: math;
 }
 
 .in-list-item-card{
-    background-color: red;
+    border: solid 1px rgb(251, 3, 3);
+    box-shadow: 0px 0px 1px 0px rgb(251, 3, 3);
 } 
+
+.c-list-item-card:hover{
+    box-shadow: 0px 0px 5px 0px rgb(3, 251, 3);
+}
+
+.in-list-item-card:hover{
+    box-shadow: 0px 0px 5px 0px rgb(251, 3, 3);
+}
 
 .listitem-popup-card{
     position: fixed;
-    top: 50px;
-    left: 40%;
-    height: 250px;
-    width: 20%;
-    /* border: solid 2px red; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    background-color: #fffcf7;
+    top: 70px;
+    left: 35%;
+    height: 180px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgb(49, 49, 49);
+    background-color: white;
     display: none;
     flex-direction: column;
     justify-content: flex-start;
@@ -225,15 +324,37 @@ input[type="radio"] {
     position: relative;
     height: 30px;
     width: 10%;
-    left: 90%;
-    font-size: 20px;
+    left: 89%;
+    top: 5px;
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+#listitem-close-button:hover{
+    color: rgb(249, 8, 8);
+    box-shadow: 0px 0px 5px 0px rgb(85, 85, 85);
+}
+
+.changeStatus-header, .deleteItem-header{
+    font-size: 15px;
+    font-family: sans-serif;
+    position: relative;
+    margin: 5px 0px 0px 20px;
 }
 
 #listitem-changestatus-button, #listitem-delete-button{
     position: relative;
     height: 25px;
-    width: 35%;
-    left: 35%;
-    font-size: 20px;
+    width: 75px;
+    left: 20px;
+    top: 10px;
+    font-size: 16px;
+    font-family: auto;
+    background-color: rgb(227, 226, 226);
 }
 
+#listitem-changestatus-button:hover, #listitem-delete-button:hover{
+    box-shadow: 0px 0px 5px 0px rgb(96, 95, 95);
+}

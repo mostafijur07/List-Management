@@ -25,10 +25,10 @@ const addListCard = (listName) => {  //geting list name.
     const listCard = document.createElement('div');
     listCard.classList.add('list-card');
     const htmlData = `<div class="list-header">
-                        <h1>${listName}</h1> 
+                        <h1 class="listname_header">${listName}</h1> 
                         <div class="button-container">
-                            <button id="add-button">Add</button>
-                            <button id="delete-button">delete</button>
+                            <button id="add-button"><i class="fa-solid fa-plus"></i>ADD ITEM</button>
+                            <button id="delete-button"><i class="fa-solid fa-trash"></i>DELETE LIST</button>
                         </div>
                       </div>
                       <div class="complete-list"></div>
@@ -67,15 +67,9 @@ createButton.addEventListener('click', () => {
                         <h1>Select List Name</h1>
                         <br/>
                         <form>
-                            <select name="listname">
-                                <option value="PROBLEM SOLVING AND DSA AND DAA">PROBLEM SOLVING AND DSA AND DAA</OPTION>
-                                <option value="PROGRAMMING LANGUAGE">PROGRAMMING LANGUAGE</OPTION>
-                                <option value="WEB DEVELOPMENT">WEB DEVELOPMENT</OPTION>
-                                <option value="M.E COURSE">M.E COURSE</OPTION>
-                                <option value="CURRENT WORK">CURRENT WORK</OPTION>
-                            </select>
+                            <textarea id="listname_textarea" maxlength="30"></textarea>
                         </form>
-                        <button id="create-submit-button">submit</button>`
+                        <button id="create-submit-button">SUBMIT</button>`
         createPopupCard.insertAdjacentHTML('afterbegin', htmlData);
         fullScreen.appendChild(createPopupCard);
         createPopupCard.style.display = "flex";
@@ -89,30 +83,34 @@ createButton.addEventListener('click', () => {
         const submitButton = createPopupCard.querySelector('#create-submit-button');
         submitButton.addEventListener('click', () => {
             //getting the list name that is selected from CREATE-POPUP-CARD form.
-            const selectArea = createPopupCard.querySelector('select');
-            const listName = selectArea.value;
+            const newListname = createPopupCard.querySelector('#listname_textarea');
+            const listName = newListname.value;
             createPopupCard.style.display = "none";
             flag=true;
             //encode list name.
-            const encodedlistName = encodeURIComponent(listName); 
-            //The encodeURIComponent() function in JavaScript is used to encode special characters in a URL
-            //For Example Before encoding: listName="PROGRAMMING LANGUAGE & DSA & DAA" 
-            //After encoding: URL="PROGRAMMING%20LANGUAGE%20%26%20DSA%20%26%20DAA"
-            //PHP automatically decodes the URL-encoded data, so you will get the original value ("PROGRAMMING LANGUAGE & DSA & DAA") instead of the encoded one.
-            const addNewListCardRequest = new XMLHttpRequest(); //creating a new http request
-            addNewListCardRequest.onreadystatechange = postAjaxFunction;
-            addNewListCardRequest.open('POST', 'api/listname_store.php');
-            addNewListCardRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            addNewListCardRequest.send('listname=' + encodedlistName); //initaiting the http request and send encoded list name.
-            
-            function postAjaxFunction () {
-                if(addNewListCardRequest.readyState===XMLHttpRequest.DONE){
-                    if(addNewListCardRequest.status === 200){
-                        const response = addNewListCardRequest.responseText;
-                        if(response === 'list already selected'){
-                            alert('list already created');
-                        }else{
-                            addListCard(listName);  //display the list card.
+            if(listName === ''){
+                alert('List Name Cannot be Empty');
+            }else{
+                //The encodeURIComponent() function in JavaScript is used to encode special characters in a URL
+                const encodedlistName = encodeURIComponent(listName); 
+                //For Example Before encoding: listName="PROGRAMMING LANGUAGE & DSA & DAA" 
+                //After encoding: URL="PROGRAMMING%20LANGUAGE%20%26%20DSA%20%26%20DAA"
+                //PHP automatically decodes the URL-encoded data, so you will get the original value ("PROGRAMMING LANGUAGE & DSA & DAA") instead of the encoded one.
+                const addNewListCardRequest = new XMLHttpRequest(); //creating a new http request
+                addNewListCardRequest.onreadystatechange = postAjaxFunction;
+                addNewListCardRequest.open('POST', 'api/listname_store.php');
+                addNewListCardRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                addNewListCardRequest.send('listname=' + encodedlistName); //initaiting the http request and send encoded list name.
+                
+                function postAjaxFunction () {
+                    if(addNewListCardRequest.readyState===XMLHttpRequest.DONE){
+                        if(addNewListCardRequest.status === 200){
+                            const response = addNewListCardRequest.responseText;
+                            if(response === 'list already selected'){
+                                alert('list already created');
+                            }else{
+                                addListCard(listName);  //display the list card.
+                            }
                         }
                     }
                 }
@@ -182,16 +180,21 @@ document.addEventListener('click', (event) => {
             const listPopupCard = document.createElement('div');
             listPopupCard.classList.add('list-popup-card');
             const htmlData = `<button id="list-close-button"><i class="fas fa-times"></i></button>
-                            <h1>Select Name</h1>  
+                            <h1 class="Additem-cardheader">Select Name</h1>  
                             <br/>           
                             <form id="list-form">
-                                <textarea name="list-item" maxlength="40"></textarea>
+                                <textarea name="list-item" id="list-item-textarea" maxlength="40"></textarea>
                                 <br/>
-                                <input type="radio" name="status" value="complete"> complete
-                                <input type="radio" name="status" value="incomplete"> incomplete
+                                <h1 class="Additem-cardStatusHeader">Select Status</h1>  
+                                <div class="input-div">
+                                    <input type="radio" name="status" value="complete">
+                                    <h1 class="input-name">COMPLETE</h1>
+                                    <input type="radio" name="status" value="incomplete">
+                                    <h1 class="input-name">INCOMPLETE</h1>
+                                </div>    
                                 <br/>
                             </form>
-                            <button id="list-submit-button">submit</button>`
+                            <button id="list-submit-button">SUBMIT</button>`
             listPopupCard.insertAdjacentHTML('afterbegin', htmlData);
             fullScreen.appendChild(listPopupCard);
             listPopupCard.style.display = "flex";
@@ -254,13 +257,11 @@ document.addEventListener('click', (event) => {
             const listItemPopupCard = document.createElement('div');
             listItemPopupCard.classList.add('listitem-popup-card');
             const htmlData = `<button id="listitem-close-button"><i class="fas fa-times"></i></button>
-                            <h1>Change Status</h1>  
-                            <br/>           
-                            <button id="listitem-changestatus-button">change</button>
+                            <h1 class="changeStatus-header">Change Status</h1>           
+                            <button id="listitem-changestatus-button">CHANGE</button>
                             <br/>
-                            <h1>Delete item</h1>
-                            <br/>
-                            <button id="listitem-delete-button">delete</button>`
+                            <h1 class="deleteItem-header">Delete item</h1>
+                            <button id="listitem-delete-button">DELETE</button>`
             listItemPopupCard.insertAdjacentHTML('afterbegin', htmlData);
             fullScreen.appendChild(listItemPopupCard);
 
